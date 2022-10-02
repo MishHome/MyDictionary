@@ -1,40 +1,28 @@
-﻿using System;
-
-class Program
+﻿class Program
 {
     static void Main(string[] args)
     {
         int error = 0;
-        var my_english_words = new Dictionary<string, string>()
+        var mydic = MyDictionary.MyDictionary.My_english_words;
+        int my_english_words_count = mydic.Count;
+        foreach (var word in mydic)
         {
-            {"cat","кот"},
-            {"dog","собака"},
-            {"beaver","бобр"},
-            {"mother","мама"},
-            {"father","папа"},
-            {"brother","брат"},
-            {"sister","сестра"}
-
-        };
-        int my_english_words_count = my_english_words.Count;
-        foreach(var word in my_english_words)
-        {
-            while(true)
+            while (true)
             {
                 Console.Write($" {word.Key} - ");
                 string? russianWord = Console.ReadLine();
                 if (russianWord == null)
                     continue;
-                else if  (russianWord == word.Value)
+                else if (russianWord == word.Value)
                     break;
-                else   
+                else
                 {
                     error++;
                     continue;
                 }
             }
         }
-            Console.WriteLine($"Всего слов {my_english_words_count}, вы ошиблись {error} раз");
+        Console.WriteLine($"Всего слов {my_english_words_count}, вы ошиблись {error} раз");
         Console.ReadLine();
     }
 
