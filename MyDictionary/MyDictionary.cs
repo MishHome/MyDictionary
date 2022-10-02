@@ -4,22 +4,27 @@
     {
         public static Dictionary<string, string> My_english_words { get; } = new Dictionary<string, string>()
         {
-            {"cat","кот, кошка"},
+            {"cat","кот,кошка"},
             {"dog","собака"},
-            {"beaver","бобр, бобер, бобёр"},
+            {"beaver","бобр,бобер,бобёр"},
             {"mother","мама,мать"},
             {"father","папа,отец"},
             {"brother","брат"},
-            {"sister","сестра"}
+            {"sister","сестра"},
+            { "husband","муж"},
+            {"aunt","тетя"},
+            //{"",""},
+            //{"",""},
 
         };
 
 
         public static bool WordVerification(string WordValue, string WordCheck)
         {
+            string[] ArrayWordsValue = WordValue.Split(',');  
             if (WordValue.Equals(WordCheck, StringComparison.InvariantCultureIgnoreCase))
                 return true;
-            else if (WordValue.Contains(WordCheck, StringComparison.InvariantCultureIgnoreCase))
+            else if (ArrayWordsValue.Any(word=> WordCheck.Equals(word, StringComparison.InvariantCultureIgnoreCase)))
                 return true;
             else
                 return false;
