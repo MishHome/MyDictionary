@@ -10,10 +10,10 @@
             while (true)
             {
                 Console.Write($" {word.Key} - ");
-                string? russianWord = Console.ReadLine();
-                if (russianWord == null)
+                string? UserInputWordtranslation = Console.ReadLine();
+                if (UserInputWordtranslation == null)
                     continue;
-                else if (russianWord == word.Value)
+                else if (MyDictionary.MyDictionary.WordVerification(word.Value, UserInputWordtranslation))
                     break;
                 else
                 {
