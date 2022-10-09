@@ -1,4 +1,6 @@
-﻿class Program
+﻿using System.Reflection.Metadata.Ecma335;
+
+class Program
 {
     static void Main(string[] args)
     {
@@ -6,8 +8,10 @@
         var mydic = MyDictionary.MyDictionary.My_english_words;
         var dicError= new Dictionary<string, string>();
         int my_english_words_count = mydic.Count;
+  
         foreach (var word in mydic)
         {
+            int count_word_question = 0;
             while (true)
             {
                 Console.Write($" {word.Key} - ");
@@ -18,8 +22,11 @@
                     break;
                 else
                 {
-                    
-                    //dicError.Add(word.Key, word.Value);
+                   if(dicError.ContainsKey(word.Key) == false)
+                        dicError.Add(word.Key, word.Value);
+                    if (count_word_question >= 2)
+                        break;
+                    count_word_question++;
                     error++;
                     continue;
                 }
