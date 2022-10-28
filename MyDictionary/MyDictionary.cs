@@ -1,4 +1,7 @@
-﻿namespace MyDictionary
+﻿using System.Diagnostics;
+using System.Reflection.Metadata;
+
+namespace MyDictionary
 {
     public static class MyDictionary
     {
@@ -31,6 +34,30 @@
             {"to book","бронировать"},
             {"booking office","билетная касса"},
             {"customs officer","таможеной чиновник"},
+            {"fast train","скорый поезд"},
+            {"slow train","медленный поезд"},
+            {"traveller","путешественник"},
+            {"camera","камера"},
+            {"passport control","паспортный контроль"},
+            {"fact","факт"},
+            {"role","роль"},
+            {"legend","легенда"},
+            {"rocket","ракета"},
+            {"traditional","традиции"},
+            {"plantator","плантатор"},
+            //{"Danya milokhin","Даня милохин"},
+            {"caviar","икра"},
+            {"custom","обычай"},
+            {"honey","мёд"},
+            {"hope","надежда"},
+            {"pancake","блин"},
+            {"soure cream","сметана"},
+            {"science","наука"},
+            {"scienetist","учёный"},
+            {"scienetific","научный"},
+            {"space","космос"},
+            {"spaceship","космический корабль"},
+            {"Virgina","Вирджиния"}
         };
 
 
