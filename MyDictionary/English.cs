@@ -6,9 +6,9 @@ namespace MyDictionary
     {
        
 
-        public string Word { get; private set; }
-        public List<string> ListTranslation { get; private set; }
-        public string? Comment { get; private set; }
+        public string Word { get;  }
+        public List<string> ListTranslation { get;  }
+        public string? Comment { get; }
 
         public English(string word, List<string> translation, string? comment=null)
         {

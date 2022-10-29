@@ -1,20 +1,30 @@
 ﻿using MyDictionary;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 class Program
 {
     static void Main(string[] args)
     {
-         int error = 0;
-         var mydic = MyDictionary.MyDictionary.My_english_words;
-        // var dicError= new Dictionary<string, string>();
-        // int my_english_words_count = mydic.Count;
+        string NameFileJson = @"C:\Users\Teams\Desktop\MyCode\MyDictionary\MyDictionary\bin\Debug\net6.0\Mydictionary.json";
+        int error = 0;
+        var mydic = MyDictionary.MyDictionary.My_english_words;
+        var dicError = new Dictionary<string, string>();
+        int my_english_words_count = mydic.Count;
 
         List<English> listDictionary= new List<English>();
-        foreach (var dic in mydic)
-        {
-            listDictionary.Add(new English(dic.Key, dic.Value.Split(',').ToList()));
-        }
 
+
+         listDictionary = LoadJson(NameFileJson);
+
+
+        //foreach (var dic in mydic)
+        //{
+        //    listDictionary.Add(new English(dic.Key, dic.Value.Split(',').ToList()));
+        //}
+        //SaveJson(NameFileJson, listDictionary);
+
+        return;
         foreach (var EngDictionary in listDictionary)
         {
             int count_word_question = 0;
@@ -48,5 +58,50 @@ class Program
         //}
         Console.ReadLine();
     }
+    public static bool SaveJson(string NameFileJson, List<English> Listdata)
+    {
+        try
+        {
+            using (StreamWriter sw = File.CreateText(NameFileJson))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Formatting = Formatting.Indented;
+                serializer.Serialize(sw, Listdata);
+
+
+            }
+
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+            throw ex.InnerException ?? ex;
+        }
+
+    }
+
+    public static List<English> LoadJson(string NameFileJson)
+    {
+        try
+        {
+
+            var jsonString = File.ReadAllText(NameFileJson);
+            List<English> Json = JsonConvert.DeserializeObject<List<English>>(jsonString);
+            return Json;
+
+
+        }
+
+        catch (Exception ex)
+        {
+            throw ex.InnerException ?? ex;
+        }
+
+
+    }
+
+
 
 }
