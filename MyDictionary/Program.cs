@@ -12,10 +12,10 @@ class Program
         var dicError = new Dictionary<string, string>();
         int my_english_words_count = mydic.Count;
 
-        List<English> listDictionary= new List<English>();
+       // List<English> listDictionary= new List<English>();
 
 
-         listDictionary = LoadJson(NameFileJson);
+        List<English> listDictionary = new Program().LoadJson(NameFileJson);
 
 
         //foreach (var dic in mydic)
@@ -82,16 +82,20 @@ class Program
 
     }
 
-    public static List<English> LoadJson(string NameFileJson)
+    public  List<English> LoadJson(string NameFileJson)
     {
         try
         {
+         
+            using (StreamReader file = File.OpenText(NameFileJson))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Formatting = Formatting.Indented;
+                List<English> Json = (List<English>)serializer.Deserialize(file, typeof(List<English>));
+                return Json;
+            }
 
-            var jsonString = File.ReadAllText(NameFileJson);
-            List<English> Json = JsonConvert.DeserializeObject<List<English>>(jsonString);
-            return Json;
-
-
+           
         }
 
         catch (Exception ex)
