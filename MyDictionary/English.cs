@@ -1,4 +1,6 @@
-﻿namespace MyDictionary
+﻿using System.Linq;
+
+namespace MyDictionary
 {
     public class English
     {
@@ -17,13 +19,16 @@
 
         public override bool Equals(object? obj)
         {
-            if (obj is English eng) 
+            if (obj is English eng)
             {
                 if (eng.Word.Equals(this.Word))
                 {
                     foreach (var trans in eng.ListTranslation)
                     {
-                        if (this.ListTranslation.Contains(trans))
+                        if (this.ListTranslation.Where(x => 
+                                    x.Equals(
+                                        trans,StringComparison.InvariantCultureIgnoreCase))
+                                            .FirstOrDefault() !=null)
                             return true;
                     }
                 }
