@@ -62,10 +62,9 @@ class Program
                     break;
                 else
                 {
-                    //if(dicError.ContainsKey(word.Key) == false)
-                    //     dicError.Add(word.Key, word.Value);
-                    // if (count_word_question >= 2)
-                    //     break;
+
+                    if (count_word_question >= 2)
+                        break;
                     count_word_question++;
                     //error++;
                     continue;
