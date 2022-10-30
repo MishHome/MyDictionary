@@ -1,4 +1,5 @@
 ﻿using MyDictionary;
+using System.Collections.Specialized;
 using System.Reflection;
 
 class Program
@@ -9,7 +10,46 @@ class Program
 
     static bool  InputWordInMyDictionary()
     {
-        
+        Console.WriteLine($"Введите английское слово");
+        string? UserInputWord = Console.ReadLine();
+        if (String.IsNullOrEmpty(UserInputWord))
+            return false;
+        else if (listDictionary.Where(x => x.Word.Equals(UserInputWord)).FirstOrDefault() != null)
+        {
+            Console.WriteLine($"Такое слово уже есть в словаре");
+            return false;
+        }
+        else 
+        {
+            Console.WriteLine($"Введите перевод одно или несколько слов через запятую");
+            string? UserInputTranslate = Console.ReadLine();
+            if (String.IsNullOrEmpty(UserInputTranslate))
+                return false;
+            else 
+            {
+                Console.WriteLine($"{UserInputWord}-{UserInputTranslate}");
+                Console.WriteLine($"Ввести в словарь? yes/no");
+                string? UserInputYN = Console.ReadLine();
+                if (String.IsNullOrEmpty(UserInputYN) || UserInputYN.Equals("no"))
+                    return false;
+                else if (UserInputYN.Equals("yes"))
+                {
+                    //здесь формируем экземпляр и пытаемся ввести слово в словарь и сохранить его 
+                    English NewWord = new English(UserInputWord, UserInputTranslate.Split(",").ToList());
+                    listDictionary.Add(NewWord);
+                    return true;
+                }
+                else
+                    return false; 
+
+            }
+
+
+        }
+
+
+       // var translateEng = new English(EngDictionary.Word, UserInputTranslationChecked.Split(',').ToList());
+
         return false; 
     }
 
@@ -19,7 +59,7 @@ class Program
     {
         string NameFileJson = new Uri(Path.Join(EXE_PATH, "Mydictionary.json")).AbsolutePath;
         // int error = 0;
-
+        listDictionary = MyJson.LoadJson(NameFileJson);
         // var dicError = new Dictionary<string, string>();
         //int my_english_words_count = mydic.Count;
 
@@ -45,7 +85,7 @@ class Program
 
 
         // return;
-        listDictionary = MyJson.LoadJson(NameFileJson); 
+        
         foreach (var EngDictionary in listDictionary)
         {
             int count_word_question = 0;
