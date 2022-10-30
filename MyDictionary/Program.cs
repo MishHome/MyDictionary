@@ -53,15 +53,15 @@ class Program
         return false; 
     }
 
-
+    
 
     static void Main(string[] args)
     {
         string NameFileJson = new Uri(Path.Join(EXE_PATH, "Mydictionary.json")).AbsolutePath;
-        // int error = 0;
+        int CountErrorTranslate = 0;
         listDictionary = MyJson.LoadJson(NameFileJson);
-        // var dicError = new Dictionary<string, string>();
-        //int my_english_words_count = mydic.Count;
+        var dicError = new Dictionary<string, string>();
+        int MyDictionaryWordsCount = listDictionary.Count;
 
         Console.Write($"Работать со словарём нажмите: 1\nВвести слово в словарь нажмите: 2\nДля выхода нажмите: 0\n");
         string? UserInputCode = Console.ReadLine();
@@ -85,8 +85,11 @@ class Program
 
 
         // return;
-        
-        foreach (var EngDictionary in listDictionary)
+        var ls = new List<English>(listDictionary);
+        ls.Shuffle();
+
+        int CountWordsForStudy = 10;
+        foreach (var EngDictionary in ls.Take(CountWordsForStudy))
         {
             int count_word_question = 0;
             while (true)
@@ -105,21 +108,21 @@ class Program
                         break;
                     else
                     {
-
+                        CountErrorTranslate++;
+                        dicError.Add(EngDictionary.Word, "");
                         if (count_word_question >= 2)
                             break;
                         count_word_question++;
-                        //error++;
                         continue;
                     }
                 }
             }
         }
-        //Console.WriteLine($"Всего слов {my_english_words_count}, вы ошиблись {error} раз");
-        //foreach(var word in dicError)
-        //{
-        //    Console.WriteLine($" {word.Key} - {word.Value} ");
-        //}
+        Console.WriteLine($"Всего слов в словаре:{MyDictionaryWordsCount}\nВы ответили на {CountWordsForStudy}\nВы ошиблись {CountErrorTranslate} раз");
+        foreach (var word in dicError)
+        {
+            Console.WriteLine($" {word.Key} - {word.Value} ");
+        }
         Console.ReadLine();
     }
 
@@ -129,4 +132,32 @@ class Program
 
 
 
+}
+//https://stackoverflow.com/questions/273313/randomize-a-listt
+public static class ThreadSafeRandom
+{
+    [ThreadStatic] private static Random Local;
+
+    public static Random ThisThreadsRandom
+    {
+        get { return Local ?? (Local = new Random(unchecked(Environment.TickCount * 31 + Thread.CurrentThread.ManagedThreadId))); }
+    }
+}
+/// <summary>
+/// Рандомизировать список
+/// </summary>
+public static class MyExtensions
+{
+    public static void Shuffle<T>(this IList<T> list)
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = ThreadSafeRandom.ThisThreadsRandom.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
 }
