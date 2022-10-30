@@ -1,20 +1,18 @@
-﻿using System.Linq;
-
-namespace MyDictionary
+﻿namespace MyDictionary
 {
     public class English
     {
-       
 
-        public string Word { get;  }
-        public List<string> ListTranslation { get;  }
+
+        public string Word { get; }
+        public List<string> ListTranslation { get; }
         public string? Comment { get; }
 
-        public English(string word, List<string> translation, string? comment=null)
+        public English(string Word, List<string> ListTranslation, string? Comment = null)
         {
-            Word = word;
-            ListTranslation = translation;
-            Comment = comment;
+            this.Word = Word;
+            this.ListTranslation = ListTranslation;
+            this.Comment = Comment;
         }
 
         public override bool Equals(object? obj)
@@ -25,10 +23,10 @@ namespace MyDictionary
                 {
                     foreach (var trans in eng.ListTranslation)
                     {
-                        if (this.ListTranslation.Where(x => 
+                        if (this.ListTranslation.Where(x =>
                                     x.Equals(
-                                        trans,StringComparison.InvariantCultureIgnoreCase))
-                                            .FirstOrDefault() !=null)
+                                        trans, StringComparison.InvariantCultureIgnoreCase))
+                                            .FirstOrDefault() != null)
                             return true;
                     }
                 }
