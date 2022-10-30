@@ -28,11 +28,11 @@ class Program
             else 
             {
                 Console.WriteLine($"{UserInputWord}-{UserInputTranslate}");
-                Console.WriteLine($"Ввести в словарь? yes/no");
+                Console.WriteLine($"Ввести в словарь? да/нет");
                 string? UserInputYN = Console.ReadLine();
-                if (String.IsNullOrEmpty(UserInputYN) || UserInputYN.Equals("no"))
+                if (String.IsNullOrEmpty(UserInputYN) || UserInputYN.Equals("нет",StringComparison.InvariantCultureIgnoreCase))
                     return false;
-                else if (UserInputYN.Equals("yes"))
+                else if (UserInputYN.Equals("да",StringComparison.InvariantCultureIgnoreCase))
                 {
                     //здесь формируем экземпляр и пытаемся ввести слово в словарь и сохранить его 
                     English NewWord = new English(UserInputWord, UserInputTranslate.Split(",").ToList());
