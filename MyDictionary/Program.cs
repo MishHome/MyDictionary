@@ -7,6 +7,14 @@ class Program
     public static string? EXE_PATH => System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
     static List<English> listDictionary = new List<English>();
 
+    static bool  InputWordInMyDictionary()
+    {
+        
+        return false; 
+    }
+
+
+
     static void Main(string[] args)
     {
         string NameFileJson = new Uri(Path.Join(EXE_PATH, "Mydictionary.json")).AbsolutePath;
@@ -15,11 +23,26 @@ class Program
         // var dicError = new Dictionary<string, string>();
         //int my_english_words_count = mydic.Count;
 
-        //foreach (var dic in mydic)
-        //{
-        //    listDictionary.Add(new English(dic.Key, dic.Value.Split(',').ToList()));
-        //}
-        //MyJson.SaveJson(NameFileJson, listDictionary);
+        Console.Write($"Работать со словарём нажмите: 1\nВвести слово в словарь нажмите: 2\nДля выхода нажмите: 0\n");
+        string? UserInputCode = Console.ReadLine();
+        if (UserInputCode == null)
+            return;
+        else if (UserInputCode.Equals("0"))
+            return;
+        else if (UserInputCode.Equals("2"))
+        {
+            if (InputWordInMyDictionary())
+            {
+                MyJson.SaveJson(NameFileJson, listDictionary);
+            }
+            return;
+        }
+        else if (UserInputCode.Equals("1"))
+            Console.WriteLine("Вы выбрали работу со словарём");
+        else
+            return;
+
+
 
         // return;
         listDictionary = MyJson.LoadJson(NameFileJson); 
@@ -56,6 +79,7 @@ class Program
         //}
         Console.ReadLine();
     }
+
 
 
 
