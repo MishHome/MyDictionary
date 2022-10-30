@@ -93,21 +93,25 @@ class Program
             {
                 Console.Write($" {EngDictionary.Word} - ");
                 string? UserInputTranslationChecked = Console.ReadLine();
-                if (UserInputTranslationChecked == null)
+                if (String.IsNullOrEmpty(UserInputTranslationChecked))
                     continue;
-
-                var translateEng = new English(EngDictionary.Word, UserInputTranslationChecked.Split(',').ToList());
-
-                if (EngDictionary.Equals(translateEng))
-                    break;
+                else if (UserInputTranslationChecked.Equals("0"))
+                    return;
                 else
                 {
+                    var translateEng = new English(EngDictionary.Word, UserInputTranslationChecked.Split(',').ToList());
 
-                    if (count_word_question >= 2)
+                    if (EngDictionary.Equals(translateEng))
                         break;
-                    count_word_question++;
-                    //error++;
-                    continue;
+                    else
+                    {
+
+                        if (count_word_question >= 2)
+                            break;
+                        count_word_question++;
+                        //error++;
+                        continue;
+                    }
                 }
             }
         }
