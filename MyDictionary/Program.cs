@@ -1,57 +1,16 @@
 ﻿using MyDictionary;
-using System.Collections.Specialized;
 using System.Reflection;
 
 class Program
 {
 
     public static string? EXE_PATH => System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+    /// <summary>
+    /// список слов из словаря
+    /// </summary>
     static List<English> listDictionary = new List<English>();
 
-    static bool  InputWordInMyDictionary()
-    {
-        Console.WriteLine($"Введите английское слово");
-        string? UserInputWord = Console.ReadLine();
-        if(CheckingUserInputData.CheckingTheEnglishWord(UserInputWord) ==false)
-            return false;
-        else if (listDictionary.Where(x => x.Word.Equals(UserInputWord)).FirstOrDefault() != null)
-        {
-            Console.WriteLine($"Такое слово уже есть в словаре");
-            return false;
-        }
-        else 
-        {
-            Console.WriteLine($"Введите перевод одно или несколько слов через запятую");
-            string? UserInputTranslate = Console.ReadLine();
-            if (String.IsNullOrEmpty(UserInputTranslate))
-                return false;
-            else 
-            {
-                Console.WriteLine($"{UserInputWord}-{UserInputTranslate}");
-                Console.WriteLine($"Ввести в словарь? да/нет");
-                string? UserInputYN = Console.ReadLine();
-                if (String.IsNullOrEmpty(UserInputYN) || UserInputYN.Equals("нет",StringComparison.InvariantCultureIgnoreCase))
-                    return false;
-                else if (UserInputYN.Equals("да",StringComparison.InvariantCultureIgnoreCase))
-                {
-                    //здесь формируем экземпляр и пытаемся ввести слово в словарь и сохранить его 
-                    English NewWord = new English(UserInputWord, UserInputTranslate.Split(",").ToList());
-                    listDictionary.Add(NewWord);
-                    return true;
-                }
-                else
-                    return false; 
-
-            }
-
-
-        }
-
-
-       // var translateEng = new English(EngDictionary.Word, UserInputTranslationChecked.Split(',').ToList());
-
-        return false; 
-    }
+    
 
     
 
@@ -59,7 +18,10 @@ class Program
     {
         string NameFileJson = new Uri(Path.Join(EXE_PATH, "Mydictionary.json")).AbsolutePath;
         int CountErrorTranslate = 0;
+        
+        //заполняю список словаря из файла
         listDictionary = MyJson.LoadJson(NameFileJson);
+        
         var dicError = new Dictionary<string, string>();
         int MyDictionaryWordsCount = listDictionary.Count;
 
@@ -71,7 +33,7 @@ class Program
             return;
         else if (UserInputCode.Equals("2"))
         {
-            if (InputWordInMyDictionary())
+            if (AddWordMyDictionary.InputWordInMyDictionary(listDictionary))
             {
                 MyJson.SaveJson(NameFileJson, listDictionary);
             }
