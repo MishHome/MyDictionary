@@ -8,19 +8,20 @@ class Program
     /// <summary>
     /// список слов из словаря
     /// </summary>
-    static List<English> listDictionary = new List<English>();
+   
+    static string NameFileJson => new Uri(Path.Join(EXE_PATH, "Mydictionary.json")).AbsolutePath;
+    static List<English> listDictionary=> MyJson.LoadJson(NameFileJson);
 
-    
 
-    
 
+    /// <summary>
+    /// ТОЧКА ВХОДА В ПРОГРАММУ
+    /// </summary>
+    /// <param name="args"></param>
     static void Main(string[] args)
     {
-        string NameFileJson = new Uri(Path.Join(EXE_PATH, "Mydictionary.json")).AbsolutePath;
+     
         int CountErrorTranslate = 0;
-        
-        //заполняю список словаря из файла
-        listDictionary = MyJson.LoadJson(NameFileJson);
         
         var dicError = new Dictionary<string, string>();
         int MyDictionaryWordsCount = listDictionary.Count;
@@ -29,10 +30,13 @@ class Program
             $"Работать со словарём введите: 1 или ввод\n" +
             $"Ввести слово в словарь введите: 2\n" +
             $"Редактировать словарь введите: 3\n" +
-            $"Для выхода введите: 0\n");
+            $"Удалить слово из словаря: 4\n" +
+            $"Найти слово из словаря: 5\n" +
+            $"Для выхода введите: 0\n"); 
         string? UserInputCode = Console.ReadLine();
         
         int modeProgramm= SelectingTheOperatingModeOfTheProgram.SelectModeOfTheProgram(UserInputCode);
+        
         if (modeProgramm == 0)
             return;
         else if (modeProgramm == 2)
@@ -46,10 +50,22 @@ class Program
         else if (modeProgramm == 3)
         {
             //метод нереализован
-
+            Console.WriteLine("метод пока нереализован");
             return;
         }
-        
+        else if (modeProgramm == 4)
+        {
+            //метод нереализован
+            Console.WriteLine("метод пока нереализован");
+            return;
+        }
+        else if (modeProgramm == 5)
+        {
+            //метод нереализован
+            Console.WriteLine("метод пока нереализован");
+            return;
+        }
+
 
 
 

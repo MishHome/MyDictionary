@@ -2,26 +2,46 @@
 
 namespace MyDictionary
 {
+    /// <summary>
+    /// класс для выбора режима работы программы
+    /// </summary>
     public static class SelectingTheOperatingModeOfTheProgram
     {
+
         public static int SelectModeOfTheProgram(string? UserInputCode)
         {
-            if (UserInputCode.Equals("0"))
-                return;
+
+            if (String.IsNullOrEmpty(UserInputCode) || UserInputCode.Equals("1"))
+            {
+                Console.WriteLine("Вы выбрали изучение слов");
+                return 1;
+            }
             else if (UserInputCode.Equals("2"))
             {
-                if (AddWordMyDictionary.InputWordInMyDictionary(listDictionary))
-                {
-                    MyJson.SaveJson(NameFileJson, listDictionary);
-                }
-                return;
+                Console.WriteLine("Вы выбрали добавление слов в словарь");
+                return 2;
             }
-            else if (String.IsNullOrEmpty(UserInputCode) || UserInputCode.Equals("1"))
-                Console.WriteLine("Вы выбрали работу со словарём");
+            else if (UserInputCode.Equals("3"))
+            {
+                Console.WriteLine("Вы выбрали редактирование словаря");
+                return 3;
+            }
+            else if (UserInputCode.Equals("4"))
+            {
+                Console.WriteLine("Вы выбрали удаление слова");
+                return 4;
+            }
+            else if (UserInputCode.Equals("5"))
+            {
+                Console.WriteLine("Вы выбрали поиск слова");
+                return 5;
+            }
             else
-                return;
-
-            return 0;
+            {
+                Console.WriteLine("Выход из программы");
+                return 0;
+            }
+           
         }
     }
 }
