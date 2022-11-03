@@ -25,13 +25,17 @@ class Program
         var dicError = new Dictionary<string, string>();
         int MyDictionaryWordsCount = listDictionary.Count;
 
-        Console.Write($"Работать со словарём нажмите: 1\nВвести слово в словарь нажмите: 2\nДля выхода нажмите: 0\n");
+        Console.Write(
+            $"Работать со словарём введите: 1 или ввод\n" +
+            $"Ввести слово в словарь введите: 2\n" +
+            $"Редактировать словарь введите: 3\n" +
+            $"Для выхода введите: 0\n");
         string? UserInputCode = Console.ReadLine();
-        if (UserInputCode == null)
+        
+        int modeProgramm= SelectingTheOperatingModeOfTheProgram.SelectModeOfTheProgram(UserInputCode);
+        if (modeProgramm == 0)
             return;
-        else if (UserInputCode.Equals("0"))
-            return;
-        else if (UserInputCode.Equals("2"))
+        else if (modeProgramm == 2)
         {
             if (AddWordMyDictionary.InputWordInMyDictionary(listDictionary))
             {
@@ -39,10 +43,13 @@ class Program
             }
             return;
         }
-        else if (UserInputCode.Equals("1"))
-            Console.WriteLine("Вы выбрали работу со словарём");
-        else
+        else if (modeProgramm == 3)
+        {
+            //метод нереализован
+
             return;
+        }
+        
 
 
 
@@ -57,25 +64,38 @@ class Program
             while (true)
             {
                 Console.Write($" {EngDictionary.Word} - ");
+                
+                
                 string? UserInputTranslationChecked = Console.ReadLine();
                 if (String.IsNullOrEmpty(UserInputTranslationChecked))
+                {
+                    Console.WriteLine("Вы ничего не ввели");
                     continue;
-                else if (UserInputTranslationChecked.Equals("0"))
+                }
+                if (UserInputTranslationChecked.Equals("0"))
                     return;
+                else if (CheckingUserInputData.CheckingTheRussianWordsTranslate(UserInputTranslationChecked) == false)
+                {
+                    Console.WriteLine("Введен недопустимый символ");  
+                    continue;
+                }
+
                 else
                 {
                     var translateEng = new English(EngDictionary.Word, UserInputTranslationChecked.Split(',').ToList());
 
                     if (EngDictionary.Equals(translateEng))
-                        break;                                   //    / 
-                    else                                        //    /
-                     {                                         //    / 
-                        CountErrorTranslate++;               //     /|--------------|
-                        dicError.Add(EngDictionary.Word, "");//     \|--------------| tyt
-                        if (count_word_question >= 2)       //       \       
-                            break;                          //        \   
-                        count_word_question++;               //        \  
-                        continue; 
+                        break;
+                    else
+                    {
+                        CountErrorTranslate++;
+                        if (dicError.ContainsKey(EngDictionary.Word) == false)
+                            dicError.Add(EngDictionary.Word, "");
+
+                        if (count_word_question >= 2)
+                            break;
+                        count_word_question++;
+                        continue;
                     }
                 }
             }
