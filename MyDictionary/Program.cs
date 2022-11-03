@@ -12,7 +12,7 @@ class Program
     {
         Console.WriteLine($"Введите английское слово");
         string? UserInputWord = Console.ReadLine();
-        if (String.IsNullOrEmpty(UserInputWord))
+        if(CheckingUserInputData.CheckingTheEnglishWord(UserInputWord) ==false)
             return false;
         else if (listDictionary.Where(x => x.Word.Equals(UserInputWord)).FirstOrDefault() != null)
         {
