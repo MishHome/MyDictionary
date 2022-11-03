@@ -105,15 +105,15 @@ class Program
                     var translateEng = new English(EngDictionary.Word, UserInputTranslationChecked.Split(',').ToList());
 
                     if (EngDictionary.Equals(translateEng))
-                        break;
-                    else
-                    {
-                        CountErrorTranslate++;
-                        dicError.Add(EngDictionary.Word, "");
-                        if (count_word_question >= 2)
-                            break;
-                        count_word_question++;
-                        continue;
+                        break;                                   //    / 
+                    else                                        //    /
+                     {                                         //    / 
+                        CountErrorTranslate++;               //     /|--------------|
+                        dicError.Add(EngDictionary.Word, "");//     \|--------------| tyt
+                        if (count_word_question >= 2)       //       \       
+                            break;                          //        \   
+                        count_word_question++;               //        \  
+                        continue; 
                     }
                 }
             }
