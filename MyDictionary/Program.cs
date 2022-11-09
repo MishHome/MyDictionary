@@ -41,9 +41,14 @@ class Program
             return;
         else if (modeProgramm == 2)
         {
-            if (AddWordMyDictionary.InputWordInMyDictionary(listDictionary))
+            
+            if (AddWordMyDictionary.InputWordInMyDictionary(listDictionary, out English? newWord ))
             {
-                MyJson.SaveJson(NameFileJson, listDictionary);
+                if (newWord != null)
+                {
+                    if (MyJson.SaveJson(NameFileJson, listDictionary))
+                        Console.WriteLine($"слово {newWord} добавлено в словарь!");  
+                }
             }
             return;
         }

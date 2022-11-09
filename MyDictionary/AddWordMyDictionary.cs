@@ -7,8 +7,9 @@ namespace MyDictionary
     /// </summary>
     public static class AddWordMyDictionary
     {
-        public static bool InputWordInMyDictionary(List<English> listDictionary)
+        public static bool InputWordInMyDictionary(List<English> listDictionary, out English? newWord)
         {
+            newWord = null;
             Console.WriteLine($"Введите английское слово");
             string? UserInputWord = Console.ReadLine();
             if (CheckingUserInputData.CheckingTheEnglishWord(UserInputWord) == false)
@@ -34,8 +35,9 @@ namespace MyDictionary
                     else if (UserInputYN.Equals("да", StringComparison.InvariantCultureIgnoreCase))
                     {
                         //здесь формируем экземпляр и пытаемся ввести слово в словарь и сохранить его 
-                        English NewWord = new English(UserInputWord, UserInputTranslate.Split(",").ToList());
-                        listDictionary.Add(NewWord);
+                         newWord = new English(UserInputWord, UserInputTranslate.Split(",").ToList());
+                        //listDictionary.Add(NewWord);
+
                         return true;
                     }
                     else
