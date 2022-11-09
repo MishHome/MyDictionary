@@ -10,7 +10,7 @@ class Program
     /// </summary>
    
     static string NameFileJson => new Uri(Path.Join(EXE_PATH, "Mydictionary.json")).AbsolutePath;
-    static List<English> listDictionary=> MyJson.LoadJson(NameFileJson);
+    static List<English> listDictionary { get; set; }= new List<English>();
 
 
 
@@ -24,54 +24,68 @@ class Program
         int CountErrorTranslate = 0;
         
         var dicError = new Dictionary<string, string>();
-        int MyDictionaryWordsCount = listDictionary.Count;
+        int MyDictionaryWordsCount;
 
-        Console.Write(
-            $"Работать со словарём введите: 1 или ввод\n" +
-            $"Ввести слово в словарь введите: 2\n" +
-            $"Редактировать словарь введите: 3\n" +
-            $"Удалить слово из словаря: 4\n" +
-            $"Найти слово из словаря: 5\n" +
-            $"Для выхода введите: 0\n"); 
-        string? UserInputCode = Console.ReadLine();
-        
-        int modeProgramm= SelectingTheOperatingModeOfTheProgram.SelectModeOfTheProgram(UserInputCode);
-        
-        if (modeProgramm == 0)
-            return;
-        else if (modeProgramm == 2)
+        while (true)
         {
-            
-            if (AddWordMyDictionary.InputWordInMyDictionary(listDictionary, out English? newWord ))
+            Console.WriteLine();  
+            MyDictionaryWordsCount = listDictionary.Count;
+            listDictionary = MyJson.LoadJson(NameFileJson);
+
+            Console.Write(
+                $"Работать со словарём введите: 1 или ввод\n" +
+                $"Ввести слово в словарь введите: 2\n" +
+                $"Редактировать словарь введите: 3\n" +
+                $"Удалить слово из словаря: 4\n" +
+                $"Найти слово из словаря: 5\n" +
+                $"Для выхода введите: 0\n");
+            string? UserInputCode = Console.ReadLine();
+
+            int modeProgramm = SelectingTheOperatingModeOfTheProgram.SelectModeOfTheProgram(UserInputCode);
+
+            if (modeProgramm == 0)
+                return;
+            else if (modeProgramm == 2)
             {
-                if (newWord != null)
+
+                if (AddWordMyDictionary.InputWordInMyDictionary(listDictionary, out English? newWord))
                 {
-                    if (MyJson.SaveJson(NameFileJson, listDictionary))
-                        Console.WriteLine($"слово {newWord} добавлено в словарь!");  
+                    if (newWord != null)
+                    {
+                        listDictionary.Add(newWord);
+                        if (MyJson.SaveJson(NameFileJson, listDictionary))
+                        {
+                            Console.WriteLine($"слово {newWord.Word} добавлено в словарь!");
+                            Console.ReadLine();
+                        }
+                    }
                 }
+                continue;
             }
-            return;
-        }
-        else if (modeProgramm == 3)
-        {
-            //метод нереализован
-            Console.WriteLine("метод пока нереализован");
-            return;
-        }
-        else if (modeProgramm == 4)
-        {
-            //метод нереализован
-            Console.WriteLine("метод пока нереализован");
-            return;
-        }
-        else if (modeProgramm == 5)
-        {
-            //метод нереализован
-            Console.WriteLine("метод пока нереализован");
-            return;
-        }
+            else if (modeProgramm == 3)
+            {
+                //метод нереализован
+                Console.WriteLine("метод пока нереализован");
+                continue;
+            }
+            else if (modeProgramm == 4)
+            {
+                //метод нереализован
+                Console.WriteLine("метод пока нереализован");
+                continue;
+            }
+            else if (modeProgramm == 5)
+            {
+                //метод нереализован
+                Console.WriteLine("метод пока нереализован");
+                continue;
+            }
+            else if (modeProgramm == 1)
+                break;
+            else
+                return; 
 
-
+        }
 
 
         // return;
