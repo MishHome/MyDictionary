@@ -92,7 +92,7 @@ class Program
         var ls = new List<English>(listDictionary);
         ls.Shuffle();
 
-        int CountWordsForStudy = 10;
+        int CountWordsForStudy = 20;
         foreach (var EngDictionary in ls.Take(CountWordsForStudy))
         {
             int count_word_question = 0;
